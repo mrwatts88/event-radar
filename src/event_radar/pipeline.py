@@ -117,7 +117,7 @@ def normalize_events(
 
         normalized.append(
             EventRecord(
-                title=extracted_event.title.strip(),
+                title=normalize_source_title(extracted_event.title.strip(), source),
                 datetime=event_datetime,
                 local_date=local_date,
                 category=category,
@@ -129,6 +129,42 @@ def normalize_events(
             )
         )
     return normalized
+
+
+def normalize_source_title(title: str, source: str) -> str:
+    team_name = team_name_from_source(source)
+    if not team_name:
+        return title
+
+    stripped = title.strip()
+    lowered = stripped.lower()
+    if lowered.startswith("@ "):
+        opponent = stripped[2:].strip()
+        if opponent:
+            return f"{team_name} at {opponent}"
+    if lowered.startswith("vs. "):
+        opponent = stripped[4:].strip()
+        if opponent:
+            return f"{team_name} vs {opponent}"
+    if lowered.startswith("vs "):
+        opponent = stripped[3:].strip()
+        if opponent:
+            return f"{team_name} vs {opponent}"
+    return title
+
+
+def team_name_from_source(source: str) -> str | None:
+    normalized = source.lower()
+    mappings = {
+        "bucks": "Milwaukee Bucks",
+        "spurs": "San Antonio Spurs",
+        "brewers": "Milwaukee Brewers",
+        "packers": "Green Bay Packers",
+    }
+    for keyword, team_name in mappings.items():
+        if keyword in normalized:
+            return team_name
+    return None
 
 
 def parse_event_datetime(raw_value: str | None, timezone: ZoneInfo) -> tuple[datetime | None, date, bool] | None:

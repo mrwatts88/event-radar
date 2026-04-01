@@ -5,7 +5,8 @@ from zoneinfo import ZoneInfo
 
 from event_radar.config import AppConfig
 from event_radar.models import EventRecord, EventTag
-from event_radar.pipeline import apply_filters, deduplicate_events, sort_events
+from event_radar.models import AIExtractedEvent
+from event_radar.pipeline import apply_filters, deduplicate_events, normalize_events, sort_events
 
 
 def build_config() -> AppConfig:
@@ -136,3 +137,33 @@ def test_sort_puts_date_only_events_after_timed_events():
     )
 
     assert sort_events([date_only, timed]) == [timed, date_only]
+
+
+def test_normalize_events_expands_schedule_shorthand_titles_from_source_name():
+    normalized = normalize_events(
+        [
+            AIExtractedEvent(
+                title="@ Golden State",
+                datetime="2026-04-01T22:00:00-05:00",
+                category="sports",
+                source="ESPN Spurs Schedule",
+                confidence=0.8,
+            ),
+            AIExtractedEvent(
+                title="vs Tampa Bay Rays",
+                datetime="2026-04-01",
+                category="sports",
+                source="ESPN Brewers Schedule",
+                confidence=0.8,
+            ),
+        ],
+        target_date=date(2026, 4, 1),
+        timezone=ZoneInfo("America/Chicago"),
+        fallback_category="sports",
+        fallback_source=None,
+        source_url="https://example.com",
+        tag=EventTag.CORE,
+    )
+
+    assert normalized[0].title == "San Antonio Spurs at Golden State"
+    assert normalized[1].title == "Milwaukee Brewers vs Tampa Bay Rays"
