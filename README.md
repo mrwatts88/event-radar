@@ -56,7 +56,7 @@ Run every morning at 7:00 AM local time:
 
 ## GitHub Actions
 
-The repository includes a scheduled workflow at [.github/workflows/daily-event-radar.yml](/Users/mattwatts/code/events/.github/workflows/daily-event-radar.yml). It runs daily at `12:00 UTC`, which is `7:00 AM` during daylight time in Chicago and `6:00 AM` during standard time.
+The repository includes a scheduled workflow at [.github/workflows/daily-event-radar.yml](/Users/mattwatts/code/events/.github/workflows/daily-event-radar.yml). It runs daily at `13:00 UTC`, which is `8:00 AM` during daylight time in Chicago and `7:00 AM` during standard time.
 
 Set these repository secrets before enabling the workflow:
 
