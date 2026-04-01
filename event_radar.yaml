@@ -1,0 +1,45 @@
+timezone: "America/Chicago"
+
+http:
+  timeout_seconds: 10
+  max_chars: 15000
+
+filters:
+  min_confidence: 0.6
+
+categories:
+  sports:
+    emoji: "🏟️"
+    sources:
+      - url: "https://www.espn.com/nba/team/schedule/_/name/mil"
+        name: "ESPN Bucks Schedule"
+      - url: "https://www.espn.com/nba/team/schedule/_/name/sa/san-antonio-spurs"
+        name: "ESPN Spurs Schedule"
+      - url: "https://www.espn.com/mlb/team/schedule/_/name/mil"
+        name: "ESPN Brewers Schedule"
+      - url: "https://www.espn.com/nfl/team/schedule/_/name/gb/green-bay-packers"
+        name: "ESPN Packers Schedule"
+    filters:
+      include_keywords: ["Bucks", "Spurs", "Brewers", "Packers"]
+
+  space:
+    emoji: "🚀"
+    sources:
+      - url: "https://www.nasa.gov/launchschedule/"
+        name: "NASA Launch Schedule"
+      - url: "https://www.spacex.com/launches/"
+        name: "SpaceX Launches"
+
+discovery:
+  enabled: true
+  prompt_categories: ["space", "wsop"]
+
+delivery:
+  method: "email"
+  smtp:
+    host: "smtp.gmail.com"
+    port: 587
+    username: "matthew.watts.mw@gmail.com"
+    from: "matthew.watts.mw@gmail.com"
+    to:
+      - "matthew.watts.mw@gmail.com"

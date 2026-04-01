@@ -1,0 +1,39 @@
+timezone: "America/Chicago"
+
+http:
+  timeout_seconds: 10
+  max_chars: 15000
+
+filters:
+  min_confidence: 0.6
+
+categories:
+  sports:
+    emoji: "🏀"
+    sources:
+      - url: "https://www.espn.com/nba/team/schedule/_/name/mil"
+        name: "ESPN Bucks Schedule"
+    filters:
+      include_keywords: ["Bucks"]
+
+  space:
+    emoji: "🚀"
+    sources:
+      - url: "https://www.nasa.gov/launchschedule/"
+        name: "NASA Launch Schedule"
+      - url: "https://www.spacex.com/launches/"
+        name: "SpaceX Launches"
+
+discovery:
+  enabled: true
+  prompt_categories: ["sports", "space", "poker"]
+
+delivery:
+  method: "email"
+  smtp:
+    host: "smtp.example.com"
+    port: 587
+    username: "user@example.com"
+    from: "events@example.com"
+    to:
+      - "you@example.com"
