@@ -13,6 +13,8 @@ categories:
     sources:
       - url: "https://www.espn.com/nba/team/schedule/_/name/mil"
         name: "ESPN Bucks Schedule"
+      - url: "https://www.espn.com/nba/team/schedule/_/name/lal/los-angeles-lakers"
+        name: "ESPN Lakers Schedule"
       - url: "https://www.espn.com/nba/team/schedule/_/name/sa/san-antonio-spurs"
         name: "ESPN Spurs Schedule"
       - url: "https://www.espn.com/mlb/team/schedule/_/name/mil"
@@ -20,7 +22,7 @@ categories:
       - url: "https://www.espn.com/nfl/team/schedule/_/name/gb/green-bay-packers"
         name: "ESPN Packers Schedule"
     filters:
-      include_keywords: ["Bucks", "Spurs", "Brewers", "Packers"]
+      include_keywords: ["Bucks", "Lakers", "Spurs", "Brewers", "Packers"]
 
   space:
     emoji: "🚀"

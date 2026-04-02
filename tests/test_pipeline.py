@@ -156,6 +156,13 @@ def test_normalize_events_expands_schedule_shorthand_titles_from_source_name():
                 source="ESPN Brewers Schedule",
                 confidence=0.8,
             ),
+            AIExtractedEvent(
+                title="vs. Boston",
+                datetime="2026-04-01T19:30:00-05:00",
+                category="sports",
+                source="ESPN Lakers Schedule",
+                confidence=0.8,
+            ),
         ],
         target_date=date(2026, 4, 1),
         timezone=ZoneInfo("America/Chicago"),
@@ -167,3 +174,4 @@ def test_normalize_events_expands_schedule_shorthand_titles_from_source_name():
 
     assert normalized[0].title == "San Antonio Spurs at Golden State"
     assert normalized[1].title == "Milwaukee Brewers vs Tampa Bay Rays"
+    assert normalized[2].title == "Los Angeles Lakers vs Boston"

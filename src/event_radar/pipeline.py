@@ -157,6 +157,7 @@ def team_name_from_source(source: str) -> str | None:
     normalized = source.lower()
     mappings = {
         "bucks": "Milwaukee Bucks",
+        "lakers": "Los Angeles Lakers",
         "spurs": "San Antonio Spurs",
         "brewers": "Milwaukee Brewers",
         "packers": "Green Bay Packers",
